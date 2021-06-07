@@ -4,11 +4,12 @@ function ColorMenu({colors, chooseColor}) {
     return (
         <div>
             {colors.map(item => (
-                <button type="button" key={item.label} onClick={chooseColor}>
+                <button style={{ backgroundColor: item.color}} type="button" key={item.label} onClick={chooseColor}>
                     <span className="">
                         {item.label}
                     </span>
-                    {item.color}
+                    <div style={{ backgroundColor: item.color}}></div>
+                    
                 </button>
                 
             ))}

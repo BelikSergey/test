@@ -1,50 +1,43 @@
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import s from './ColorPicker.module.css';
 import ColorButton from '../Buttons/ColorButton';
 import HexButton from '../Buttons/HexButton';
 import ColorMenu from '../ColorsMenu';
-import colors from '../../data/colors';
+import ArrColors from '../../data/colors';
+import HexMenu from '../HexMenu';
 
-class ColorPicker extends Component {
-  state = {
-    colors: [],
-    modalColor: false,
-    modalRGB: false,
-    currentColor: '',
-  };
+const ColorPicker = () => {
+  const [colors, setColors] = useState(ArrColors);
+  const [modalColor, setModalColor] = useState(false);
+  const [modalRGB, setModalRGB] = useState(false);
+  // const [currentColor, setcurrentColor] = useState('');
 
-  handleColorMenu = e => {
-    this.setState(state => ({
-      modalColor: !state.modalColor,
-    }));
+  const handleColorMenu = e => {
+    setModalColor(!modalColor);
   };
-  handleChooseColor = e => {
+  const handleChooseColor = e => {
     console.log(e.target);
   };
 
-  handleHexMenu = e => {
-    this.setState(state => ({
-      modalRGB: !state.modalRGB,
-    }));
+  const handleHexMenu = e => {
+    setModalRGB(!modalRGB);
   };
 
-  render() {
-    const { modalColor, modalRGB } = this.state;
-    return (
-      <div className={s.container}>
-        <h2 className={s.title}>Color Picker</h2>
-        <p>Color</p>
-        <ColorButton toggleMenu={this.handleColorMenu} />
-        <HexButton showHexMenu={this.handleHexMenu} />
-        {modalColor && (
-          <ColorMenu
-            colors={colors}
-            chooseColor={this.handleChooseColor}
-          />
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={s.container}>
+      <h2 className={s.title}>Color Picker</h2>
+      <p>Color</p>
+      <ColorButton toggleMenu={handleColorMenu} />
+      <HexButton showHexMenu={handleHexMenu} />
+      {modalColor && (
+        <ColorMenu
+          colors={colors}
+          chooseColor={handleChooseColor}
+        />
+      )}
+      {modalRGB && <HexMenu />}
+    </div>
+  );
+};
 
 export default ColorPicker;
