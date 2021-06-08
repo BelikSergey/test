@@ -1,39 +1,54 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import ColorReducer from './colorsReducer';
+// import {
+//   currentColorReducer,
+//   REDReducer,
+//   GREENReducer,
+//   BLUEReducer,
+// // } from './colorsReducer';
 
-const initialState = {
-  currentColor: '',
-  RED: 0,
-  GREEN: 0,
-  BLUE: 0,
-};
+// const initialState = {
+//   currentColor: '',
+//   RED: 0,
+//   GREEN: 0,
+//   BLUE: 0,
+// };
 
-const reducer = (
-  state = initialState,
-  { type, payload },
-) => {
-  switch (type) {
-    case 'CHANGE_CURRENT_COLOR':
-      return { payload };
-    case 'CHANGE_RED':
-      return {
-        RED: payload,
-      };
-    case 'CHANGE_GREEN':
-      return {
-        GREEN: payload,
-      };
-    case 'CHANGE_BLUE':
-      return {
-        BLUE: payload,
-      };
+// const rootReducer = combineReducers({
+//   color: ColorReducer,
+// });
 
-    default:
-      return state;
-  }
-};
+// const reducer = (
+//   state = initialState,
+//   { type, payload },
+// ) => {
+//   switch (type) {
+//     case 'CHANGE_CURRENT_COLOR':
+//       return { payload };
+//     case 'CHANGE_RED':
+//       console.log('1111');
+//       return {
+//         RED: payload,
+//       };
+//     case 'CHANGE_GREEN':
+//       return {
+//         GREEN: payload,
+//       };
+//     case 'CHANGE_BLUE':
+//       return {
+//         BLUE: payload,
+//       };
 
-const store = createStore(reducer, composeWithDevTools());
+//     default:
+//       return state;
+//   }
+// };
+
+const store = createStore(
+  ColorReducer,
+  composeWithDevTools(),
+);
 
 export default store;
 
