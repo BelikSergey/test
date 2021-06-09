@@ -1,124 +1,107 @@
-import { useState } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import actions from '../../redux/colorActions.js';
 
-function HexMenu({
-  red,
-  green,
-  blue,
-  changeColorRed,
-  changeColorGreen,
-  changeColorBlue,
-  changeHex,
-}) {
-  // const dispatch = useDispatch();
-
-  // const [redColor, setRedColor] = useState(0);
-  // const [greenColor, setGreenColor] = useState(0);
-  // const [BlueColor, setBlueColor] = useState(0);
-
-  // const changeColorRed = evt => {
-  //   const { value } = evt.currentTarget;
-  //   setRedColor(value);
-  // };
-  // const changeColorGreen = evt => {
-  //   const { value } = evt.currentTarget;
-  //   setGreenColor(value);
-  // };
-  // const changeColorBlue = evt => {
-  //   const { value } = evt.currentTarget;
-  //   setBlueColor(value);
-  // };
-
-  return (
-    <div className="NexMenu">
-      <span>{`${red},${green},${blue}`}</span>
-      <form onSubmit={changeHex}>
-        <label className="RedSelect">
-          R
-          <input
-            type="range"
-            min="0"
-            max="255"
-            name="RED"
-            // value={red}
-            onChange={changeColorRed}
-          ></input>
-        </label>
-        <label className="GreenSelect">
-          G
-          <input
-            type="range"
-            min="0"
-            max="255"
-            name="GREEN"
-            // value={green}
-            onChange={changeColorGreen}
-          ></input>
-        </label>
-        <label className="BlueSelect">
-          B
-          <input
-            type="range"
-            min="0"
-            max="255"
-            name="BLUE"
-            // value={blue}
-            onChange={changeColorBlue}
-          ></input>
-        </label>
-        <button type="button" onClick={() => {}}>
-          cancel
-        </button>
-        <button type="submit">OK</button>
-      </form>
-    </div>
-  );
-}
-
-function componentToHex(c) {
-  let hex = c.toString(16);
-  return hex.length === 1 ? '0' + hex : hex;
-}
-
-function rgbToHex(r, g, b) {
-  console.log('есть ргб хекс', r, g, b);
-  return (
-    '#' +
-    componentToHex(r) +
-    componentToHex(g) +
-    componentToHex(b)
-  );
-}
-
-function onSubmit(e) {
-  e.preventDefault();
-  console.log(e);
-  // rgbToHex();
-}
-
-const mapStateToProps = state => {
-  return {
-    red: state.RED,
-    green: state.GREEN,
-    blue: state.BLUE,
+class HexMenu extends Component {
+  state = {
+    red: 0,
+    green: 0,
+    blue: 0,
   };
-};
 
-const mapDispatchToProps = dispatch => {
-  return {
-    changeColorRed: evt =>
-      dispatch(actions.changeRED(evt.target.value)),
-    changeColorGreen: evt =>
-      dispatch(actions.changeGREEN(evt.target.value)),
-    changeColorBlue: evt =>
-      dispatch(actions.changeBLUE(evt.target.value)),
-    changeHex: e =>
-      dispatch(actions.changeCurrentColor(onSubmit(e))),
+  changeColorRed = evt => {
+    const { value } = evt.currentTarget;
+    this.setState({ red: value });
   };
-};
+  changeColorGreen = evt => {
+    const { value } = evt.currentTarget;
+    this.setState({ green: value });
+  };
+  changeColorBlue = evt => {
+    const { value } = evt.currentTarget;
+    this.setState({ blue: value });
+  };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(HexMenu);
+  rgbToHex = function (rgb) {
+    let hex = Number(rgb).toString(16);
+    if (hex.length < 2) {
+      hex = '0' + hex;
+    }
+    return hex;
+  };
+
+  fullColorHex = (r, g, b) => {
+    const red = this.rgbToHex(r);
+    const green = this.rgbToHex(g);
+    const blue = this.rgbToHex(b);
+    return '#' + red + green + blue;
+  };
+
+  changeHex = e => {
+    console.log('сабмит формы');
+    e.preventDefault();
+    const { red, green, blue } = this.state;
+
+    this.props.onSubmit(
+      this.fullColorHex(red, green, blue),
+    );
+    this.props.onClick();
+  };
+  render() {
+    // const { red, green, blue } = this.state;
+    return (
+      <div className="NexMenu">
+        {/* <span>{`${red}${green}${blue}`}</span> */}
+        <form onSubmit={this.changeHex}>
+          <label className="RedSelect">
+            R
+            <input
+              type="range"
+              min="0"
+              max="255"
+              name="RED"
+              // value={red}
+              onChange={this.changeColorRed}
+            ></input>
+          </label>
+          <label className="GreenSelect">
+            G
+            <input
+              type="range"
+              min="0"
+              max="255"
+              name="GREEN"
+              // value={green}
+              onChange={this.changeColorGreen}
+            ></input>
+          </label>
+          <label className="BlueSelect">
+            B
+            <input
+              type="range"
+              min="0"
+              max="255"
+              name="BLUE"
+              // value={blue}
+              onChange={this.changeColorBlue}
+            ></input>
+          </label>
+          <button
+            type="button"
+            onClick={this.props.onClick}
+          >
+            cancel
+          </button>
+          <button type="submit">OK</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: item =>
+    dispatch(actions.changeCurrentColor(item)),
+});
+
+export default connect(null, mapDispatchToProps)(HexMenu);

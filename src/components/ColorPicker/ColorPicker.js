@@ -35,7 +35,7 @@ const ColorPicker = () => {
           chooseColor={handleChooseColor}
         />
       )}
-      {modalRGB && <HexMenu />}
+      {modalRGB && <HexMenu onClick={handleHexMenu} />}
     </div>
   );
 };
