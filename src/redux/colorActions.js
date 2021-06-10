@@ -5,32 +5,24 @@ const changeCurrentColor = value => {
   };
 };
 
-// const changeRED = value => {
-//   // console.log('hbcaskhbdvfcahb');
-//   return {
-//     type: 'CHANGE_RED',
-//     payload: value,
-//   };
-// };
+const changeColorModal = value => {
+  return {
+    type: 'CHANGE_COLOR_MODAL',
+    payload: value,
+  };
+};
 
-// const changeGREEN = value => {
-//   return {
-//     type: 'CHANGE_GREEN',
-//     payload: value,
-//   };
-// };
-
-// const changeBLUE = value => {
-//   return {
-//     type: 'CHANGE_BLUE',
-//     payload: value,
-//   };
-// };
+const changeHexModal = value => {
+  return {
+    type: 'CHANGE_HEX_MODAL',
+    payload: value,
+  };
+};
 
 const actions = {
   changeCurrentColor,
-  // changeRED,
-  // changeGREEN,
+  changeColorModal,
+  changeHexModal,
   // changeBLUE,
 };
 // eslint-disable-next-line import/no-anonymous-default-export

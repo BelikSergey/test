@@ -1,41 +1,41 @@
-import { Component, useState } from 'react';
 import s from './ColorPicker.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import ColorButton from '../Buttons/ColorButton';
 import HexButton from '../Buttons/HexButton';
 import ColorMenu from '../ColorsMenu';
-import ArrColors from '../../data/colors';
+import arrColors from '../../data/colors';
 import HexMenu from '../HexMenu';
+import actions from '../../redux/colorActions';
 
 const ColorPicker = () => {
-  const [colors, setColors] = useState(ArrColors);
-  const [modalColor, setModalColor] = useState(false);
-  const [modalRGB, setModalRGB] = useState(false);
-  // const [currentColor, setcurrentColor] = useState('');
+  const dispatch = useDispatch();
+  const modalColor = useSelector(state => state.colorModal);
+  const currentColor = useSelector(
+    state => state.currentColor,
+  );
+  const hexModal = useSelector(state => state.hexModal);
 
   const handleColorMenu = e => {
-    setModalColor(!modalColor);
-  };
-  const handleChooseColor = e => {
-    console.log(e.target);
+    dispatch(actions.changeColorModal(!modalColor));
+    dispatch(actions.changeHexModal(false));
   };
 
   const handleHexMenu = e => {
-    setModalRGB(!modalRGB);
+    dispatch(actions.changeHexModal(!hexModal));
+    dispatch(actions.changeColorModal(false));
   };
 
   return (
     <div className={s.container}>
       <h2 className={s.title}>Color Picker</h2>
-      <p>Color</p>
+      <div>{currentColor}</div>
+      <div style={{ backgroundColor: currentColor }}>
+        rrr
+      </div>
       <ColorButton toggleMenu={handleColorMenu} />
       <HexButton showHexMenu={handleHexMenu} />
-      {modalColor && (
-        <ColorMenu
-          colors={colors}
-          chooseColor={handleChooseColor}
-        />
-      )}
-      {modalRGB && <HexMenu onClick={handleHexMenu} />}
+      {modalColor && <ColorMenu colors={arrColors} />}
+      {hexModal && <HexMenu />}
     </div>
   );
 };

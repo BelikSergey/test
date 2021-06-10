@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
 const currentColorReducer = (
-  state = '',
+  state = '#FFFF00',
   { type, payload },
 ) => {
   switch (type) {
     case 'CHANGE_CURRENT_COLOR':
+      console.log('есть редюсер');
+
       return payload;
 
     default:
@@ -13,39 +15,36 @@ const currentColorReducer = (
   }
 };
 
-// const REDReducer = (state = 0, { type, payload }) => {
-//   switch (type) {
-//     case 'CHANGE_RED':
-//       return payload;
+const changeColorReducer = (
+  state = false,
+  { type, payload },
+) => {
+  switch (type) {
+    case 'CHANGE_COLOR_MODAL':
+      return payload;
 
-//     default:
-//       return state;
-//   }
-// };
+    default:
+      return state;
+  }
+};
 
-// const GREENReducer = (state = 0, { type, payload }) => {
-//   switch (type) {
-//     case 'CHANGE_GREEN':
-//       return payload;
+const changeHexReducer = (
+  state = false,
+  { type, payload },
+) => {
+  switch (type) {
+    case 'CHANGE_HEX_MODAL':
+      return payload;
 
-//     default:
-//       return state;
-//   }
-// };
-
-// const BLUEReducer = (state = 0, { type, payload }) => {
-//   switch (type) {
-//     case 'CHANGE_BLUE':
-//       return payload;
-
-//     default:
-//       return state;
-//   }
-// };
+    default:
+      return state;
+  }
+};
 
 export default combineReducers({
   currentColor: currentColorReducer,
-  //   RED: REDReducer,
+  colorModal: changeColorReducer,
+  hexModal: changeHexReducer,
   //   GREEN: GREENReducer,
   //   BLUE: BLUEReducer,
 });
