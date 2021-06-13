@@ -6,6 +6,19 @@ const currentColorReducer = (
 ) => {
   switch (type) {
     case 'CHANGE_CURRENT_COLOR':
+      return payload;
+
+    default:
+      return state;
+  }
+};
+
+const hexValueReducer = (
+  state = '#FFFF00',
+  { type, payload },
+) => {
+  switch (type) {
+    case 'CHANGE_HEX_VALUE':
       console.log('есть редюсер');
 
       return payload;
@@ -45,6 +58,6 @@ export default combineReducers({
   currentColor: currentColorReducer,
   colorModal: changeColorReducer,
   hexModal: changeHexReducer,
-  //   GREEN: GREENReducer,
+  hexValue: hexValueReducer,
   //   BLUE: BLUEReducer,
 });

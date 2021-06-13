@@ -4,6 +4,12 @@ const changeCurrentColor = value => {
     payload: value,
   };
 };
+const changeHexValue = value => {
+  return {
+    type: 'CHANGE_HEX_VALUE',
+    payload: value,
+  };
+};
 
 const changeColorModal = value => {
   return {
@@ -23,7 +29,7 @@ const actions = {
   changeCurrentColor,
   changeColorModal,
   changeHexModal,
-  // changeBLUE,
+  changeHexValue,
 };
 // eslint-disable-next-line import/no-anonymous-default-export
 export default actions;

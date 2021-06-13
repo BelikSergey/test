@@ -14,6 +14,7 @@ const ColorPicker = () => {
     state => state.currentColor,
   );
   const hexModal = useSelector(state => state.hexModal);
+  const hexValue = useSelector(state => state.hexValue);
 
   const handleColorMenu = e => {
     dispatch(actions.changeColorModal(!modalColor));
@@ -28,10 +29,8 @@ const ColorPicker = () => {
   return (
     <div className={s.container}>
       <h2 className={s.title}>Color Picker</h2>
-      <div>{currentColor}</div>
-      <div style={{ backgroundColor: currentColor }}>
-        rrr
-      </div>
+      <div>{hexValue}</div>
+      <div style={{ backgroundColor: hexValue }}>rrr</div>
       <ColorButton toggleMenu={handleColorMenu} />
       <HexButton showHexMenu={handleHexMenu} />
       {modalColor && <ColorMenu colors={arrColors} />}

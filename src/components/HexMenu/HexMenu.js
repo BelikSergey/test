@@ -1,14 +1,59 @@
-import { useCallback, useState } from 'react';
+import {
+  useCallback,
+  useState,
+  useEffect,
+  useRef,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from '../../redux/colorActions.js';
+import hexToRgb from '../../helpers/hexToRgb';
+import rgbToHex from '../../helpers/rgbToHex';
 
 function HexMenu() {
   const dispatch = useDispatch();
   const hexModal = useSelector(state => state.hexModal);
+  const currentColor = useSelector(
+    state => state.currentColor,
+  );
+
+  // const hexValue = useSelector(state => state.hexValue);
 
   const [red, setRed] = useState(0);
   const [green, setGreen] = useState(0);
   const [blue, setBlue] = useState(0);
+  const colorRef = useRef();
+
+  const handleClickOutside = e => {
+    if (!colorRef.current.contains(e.target)) {
+      dispatch(actions.changeHexModal(!hexModal));
+      dispatch(actions.changeHexValue(currentColor));
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener(
+      'mousedown',
+      handleClickOutside,
+    );
+    return () =>
+      document.removeEventListener(
+        'mousedown',
+        handleClickOutside,
+      );
+  });
+
+  useEffect(() => {
+    const [R, G, B] = hexToRgb(currentColor);
+    setRed(R);
+    setGreen(G);
+    setBlue(B);
+  }, [currentColor]);
+
+  useEffect(() => {
+    const hex = rgbToHex(red, green, blue);
+
+    dispatch(actions.changeHexValue(hex));
+  });
 
   const changeColorRed = evt => {
     const { value } = evt.currentTarget;
@@ -23,38 +68,32 @@ function HexMenu() {
     setBlue(value);
   };
 
-  const rgbToHex = function (rgb) {
-    let hex = Number(rgb).toString(16);
-    if (hex.length < 2) {
-      hex = '0' + hex;
-    }
-    return hex;
-  };
-
-  const fullColorHex = (r, g, b) => {
-    const red = rgbToHex(r);
-    const green = rgbToHex(g);
-    const blue = rgbToHex(b);
-    return '#' + red + green + blue;
-  };
-
+  // eslint-disable-next-line
   const changeHex = useCallback(e => {
-    console.log('сабмит формы');
+    // console.log('сабмит формы');
     e.preventDefault();
-    const hex = fullColorHex(red, green, blue);
+    const hex = rgbToHex(red, green, blue);
 
     dispatch(actions.changeCurrentColor(hex));
+    dispatch(actions.changeHexValue(hex));
     dispatch(actions.changeHexModal(!hexModal));
   });
 
   const closeModal = () => {
     dispatch(actions.changeHexModal(!hexModal));
+    dispatch(actions.changeHexValue(currentColor));
   };
 
   // const { red, green, blue } = this.state;
   return (
-    <div className="NexMenu">
-      {/* <span>{`${red}${green}${blue}`}</span> */}
+    <div ref={colorRef} className="NexMenu">
+      <div
+        style={{
+          backgroundColor: `rgb(${red},${green},${blue})`,
+        }}
+      >
+        {red}, {green}, {blue}
+      </div>
       <form onSubmit={changeHex}>
         <label className="RedSelect">
           R
