@@ -4,10 +4,12 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from '../../redux/colorActions.js';
 import hexToRgb from '../../helpers/hexToRgb';
 import rgbToHex from '../../helpers/rgbToHex';
+import s from './HexMenu.module.css';
 
 function HexMenu() {
   const dispatch = useDispatch();
@@ -86,54 +88,65 @@ function HexMenu() {
 
   // const { red, green, blue } = this.state;
   return (
-    <div ref={colorRef} className="NexMenu">
-      <div
-        style={{
-          backgroundColor: `rgb(${red},${green},${blue})`,
-        }}
-      >
-        {red}, {green}, {blue}
+    <CSSTransition
+      classNames={s}
+      in={true}
+      appear={true}
+      timeout={500}
+    >
+      <div ref={colorRef}>
+        <form className={s.HexMenu} onSubmit={changeHex}>
+          <label className={s.inputRange}>
+            R
+            <input
+              className={s.red}
+              type="range"
+              min="0"
+              max="255"
+              name="RED"
+              value={red}
+              onChange={changeColorRed}
+            ></input>
+          </label>
+          <label className={s.inputRange}>
+            G
+            <input
+              className={s.green}
+              type="range"
+              min="0"
+              max="255"
+              name="GREEN"
+              value={green}
+              onChange={changeColorGreen}
+            ></input>
+          </label>
+          <label className={s.inputRange}>
+            B
+            <input
+              className={s.blue}
+              type="range"
+              min="0"
+              max="255"
+              name="BLUE"
+              value={blue}
+              onChange={changeColorBlue}
+            ></input>
+          </label>
+          <div className={s.buttonsContainer}>
+            <button
+              type="button"
+              onClick={closeModal}
+              className={s.cancelButton}
+            >
+              CANCEL
+            </button>
+            <button className={s.okButton} type="submit">
+              OK
+            </button>
+          </div>
+        </form>
       </div>
-      <form onSubmit={changeHex}>
-        <label className="RedSelect">
-          R
-          <input
-            type="range"
-            min="0"
-            max="255"
-            name="RED"
-            value={red}
-            onChange={changeColorRed}
-          ></input>
-        </label>
-        <label className="GreenSelect">
-          G
-          <input
-            type="range"
-            min="0"
-            max="255"
-            name="GREEN"
-            value={green}
-            onChange={changeColorGreen}
-          ></input>
-        </label>
-        <label className="BlueSelect">
-          B
-          <input
-            type="range"
-            min="0"
-            max="255"
-            name="BLUE"
-            value={blue}
-            onChange={changeColorBlue}
-          ></input>
-        </label>
-        <button type="button" onClick={closeModal}>
-          cancel
-        </button>
-        <button type="submit">OK</button>
-      </form>
-    </div>
+    </CSSTransition>
   );
 }
 

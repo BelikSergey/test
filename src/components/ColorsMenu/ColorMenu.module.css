@@ -1,0 +1,40 @@
+.appear {
+  opacity: 0;
+  /* transform: translateX(-200%); */
+}
+.appearActive {
+  opacity: 1;
+  /* transform: translateX(0); */
+  transition: all 500ms;
+}
+
+.menu {
+    background-color: #fff;
+    position: absolute;
+    right: 10px;
+    top: 100%;
+    display: flex;
+    width: 200px;
+    flex-wrap: wrap;
+}
+.colorButton{
+    
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    color: grey;
+    width: 100%;
+    border: 1px solid grey;
+    border-radius: 1px;
+    justify-content: space-between;
+    padding: 5px 10px 5px 20px;
+   
+
+}
+.colorButton:hover,
+.colorButton:focus{
+    background-color: rgb(231, 229, 229);
+     transition-property: all;
+    transition-duration: 500ms;
+    transition-timing-function:linear;
+}

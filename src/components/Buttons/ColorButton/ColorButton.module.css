@@ -1,0 +1,21 @@
+.Button {
+    
+  /* width: 45px;
+    outline-style: none;
+    border: 1px solid grey;
+    border-radius: 1px; */
+    display: block;
+    width: 50px;
+    height: 35px;
+   
+}
+.ColorButton {
+    width: 100%;
+    outline-style: none;
+    border: 1px solid grey;
+    border-radius: 1px;
+    height: 100%;
+    background-color: inherit;
+    border-radius: 2px;
+     
+}

@@ -1,18 +1,21 @@
 import PropTypes from 'prop-types';
-import s from './HexButton.module.css';
+import s from '../ColorButton/ColorButton.module.css';
 
-function HexButton({ showHexMenu }) {
+function HexButton({ showColorMenu }) {
   return (
-    <div className={s.ColorButton}>
+    <div className={s.Button}>
       <button
-        className=""
+        className={s.ColorButton}
         type="button"
         name={s.colorButton}
-        onClick={showHexMenu}
+        onClick={showColorMenu}
       >
-        HEX
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="grey" viewBox="0 0 20 20">
+        <title>triangle-down</title>
+        <path d="M5 6h10l-5 9-5-9z"></path>
+        </svg>
       </button>
-    </div>
+      </div>
   );
 }
 

@@ -38,6 +38,7 @@ body {
     text-rendering: optimizeSpeed;
     line-height: 1.5;
     padding: 10px;
+    color: grey;
 }
 
 /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
@@ -68,4 +69,5 @@ button,
 textarea,
 select {
     font: inherit;
+    color:inherit
 }

@@ -1,4 +1,4 @@
-import s from './ColorPicker.module.css';
+import { CSSTransition } from 'react-transition-group';
 import { useDispatch, useSelector } from 'react-redux';
 import ColorButton from '../Buttons/ColorButton';
 import HexButton from '../Buttons/HexButton';
@@ -6,13 +6,12 @@ import ColorMenu from '../ColorsMenu';
 import arrColors from '../../data/colors';
 import HexMenu from '../HexMenu';
 import actions from '../../redux/colorActions';
+import s from './ColorPicker.module.css';
 
 const ColorPicker = () => {
   const dispatch = useDispatch();
+
   const modalColor = useSelector(state => state.colorModal);
-  const currentColor = useSelector(
-    state => state.currentColor,
-  );
   const hexModal = useSelector(state => state.hexModal);
   const hexValue = useSelector(state => state.hexValue);
 
@@ -27,15 +26,36 @@ const ColorPicker = () => {
   };
 
   return (
-    <div className={s.container}>
-      <h2 className={s.title}>Color Picker</h2>
-      <div>{hexValue}</div>
-      <div style={{ backgroundColor: hexValue }}>rrr</div>
-      <ColorButton toggleMenu={handleColorMenu} />
-      <HexButton showHexMenu={handleHexMenu} />
-      {modalColor && <ColorMenu colors={arrColors} />}
-      {hexModal && <HexMenu />}
-    </div>
+    <CSSTransition
+      classNames={s}
+      in={true}
+      appear={true}
+      timeout={500}
+    >
+      <div className={s.container}>
+        <h2 className={s.title}>Color Picker</h2>
+        <div className={s.content}>
+          <div className={s.hexValue}>{hexValue}</div>
+          {/* <div
+            className={s.colorSquare}
+            style={{ backgroundColor: hexValue }}
+          ></div> */}
+
+          <ColorButton
+            showHexMenu={handleHexMenu}
+            color={hexValue}
+          />
+          <HexButton showColorMenu={handleColorMenu} />
+          {modalColor && (
+            <ColorMenu
+              colors={arrColors}
+              className="button"
+            />
+          )}
+          {hexModal && <HexMenu className="button" />}
+        </div>
+      </div>
+    </CSSTransition>
   );
 };
 
