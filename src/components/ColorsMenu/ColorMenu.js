@@ -36,7 +36,6 @@ function ColorMenu({ colors }) {
     dispatch(actions.changeHexValue(value));
     dispatch(actions.changeCurrentColor(value));
     dispatch(actions.changeColorModal(!colorModal));
-    // setModal(!modal);
   });
 
   return (
@@ -67,9 +66,6 @@ function ColorMenu({ colors }) {
               <title>stop2</title>
               <path d="M4 4h24v24h-24z"></path>
             </svg>
-            {/* <div style={{ backgroundColor: item.color }}>
-            dfsrf
-          </div> */}
           </button>
         ))}
       </div>
@@ -81,9 +77,5 @@ ColorMenu.propTypes = {
   colors: PropTypes.arrayOf(PropTypes.object),
   chooseColor: PropTypes.func,
 };
-
-// const mapDispatchToProps = dispatch => ({
-//     chooseColor: (item) => dispatch(actions.changeCurrentColor(item))
-// });
 
 export default ColorMenu;

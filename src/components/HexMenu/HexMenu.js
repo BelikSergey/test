@@ -13,17 +13,16 @@ import s from './HexMenu.module.css';
 
 function HexMenu() {
   const dispatch = useDispatch();
+
   const hexModal = useSelector(state => state.hexModal);
   const currentColor = useSelector(
     state => state.currentColor,
   );
-
-  // const hexValue = useSelector(state => state.hexValue);
+  const colorRef = useRef();
 
   const [red, setRed] = useState(0);
   const [green, setGreen] = useState(0);
   const [blue, setBlue] = useState(0);
-  const colorRef = useRef();
 
   const handleClickOutside = e => {
     if (!colorRef.current.contains(e.target)) {
@@ -55,7 +54,7 @@ function HexMenu() {
     const hex = rgbToHex(red, green, blue);
 
     dispatch(actions.changeHexValue(hex));
-  });
+  }, [red, green, blue, dispatch]);
 
   const changeColorRed = evt => {
     const { value } = evt.currentTarget;
@@ -72,7 +71,6 @@ function HexMenu() {
 
   // eslint-disable-next-line
   const changeHex = useCallback(e => {
-    // console.log('сабмит формы');
     e.preventDefault();
     const hex = rgbToHex(red, green, blue);
 
@@ -86,7 +84,6 @@ function HexMenu() {
     dispatch(actions.changeHexValue(currentColor));
   };
 
-  // const { red, green, blue } = this.state;
   return (
     <CSSTransition
       classNames={s}
@@ -149,10 +146,5 @@ function HexMenu() {
     </CSSTransition>
   );
 }
-
-// const mapDispatchToProps = dispatch => ({
-//   onSubmit: item =>
-//     dispatch(actions.changeCurrentColor(item)),
-// });
 
 export default HexMenu;

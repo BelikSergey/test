@@ -1,9 +1,4 @@
 .Button {
-    
-  /* width: 45px;
-    outline-style: none;
-    border: 1px solid grey;
-    border-radius: 1px; */
     display: block;
     width: 50px;
     height: 35px;
@@ -18,4 +13,11 @@
     background-color: inherit;
     border-radius: 2px;
      
+}
+.ColorButton:hover,
+.ColorButton:focus{
+    background-color: rgb(224, 244, 246);
+    transition-property: all;
+    transition-duration: 500ms;
+    transition-timing-function:linear;
 }

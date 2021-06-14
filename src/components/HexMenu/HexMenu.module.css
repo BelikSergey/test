@@ -1,6 +1,6 @@
 .appear {
   opacity: 0;
-  /* transform: translateX(-200%); */
+  /* transform: translateX(200%); */
 }
 .appearActive {
   opacity: 1;
@@ -28,9 +28,7 @@
     width: 100%;
     margin-bottom: 10px;
 }
-/* .inputRange:last-child{
-    margin-bottom: 15px;
-} */
+
 .red, 
 .green, 
 .blue {
@@ -43,7 +41,7 @@
 
 .buttonsContainer{
     display: flex;
-    justify-content: end;
+    /* justify-content: end; */
     color: grey;
 }
 

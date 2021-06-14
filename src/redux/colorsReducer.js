@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
+import types from './actions-type';
 
 const currentColorReducer = (
   state = '#FFFF00',
   { type, payload },
 ) => {
   switch (type) {
-    case 'CHANGE_CURRENT_COLOR':
+    case types.currentColor:
       return payload;
 
     default:
@@ -18,9 +19,8 @@ const hexValueReducer = (
   { type, payload },
 ) => {
   switch (type) {
-    case 'CHANGE_HEX_VALUE':
-      console.log('есть редюсер');
-
+    case types.hexValue:
+      // console.log('есть редюсер');
       return payload;
 
     default:
@@ -33,7 +33,7 @@ const changeColorReducer = (
   { type, payload },
 ) => {
   switch (type) {
-    case 'CHANGE_COLOR_MODAL':
+    case types.colorModal:
       return payload;
 
     default:
@@ -46,7 +46,7 @@ const changeHexReducer = (
   { type, payload },
 ) => {
   switch (type) {
-    case 'CHANGE_HEX_MODAL':
+    case types.rgbModal:
       return payload;
 
     default:
@@ -59,5 +59,4 @@ export default combineReducers({
   colorModal: changeColorReducer,
   hexModal: changeHexReducer,
   hexValue: hexValueReducer,
-  //   BLUE: BLUEReducer,
 });

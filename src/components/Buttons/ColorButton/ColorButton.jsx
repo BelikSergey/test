@@ -9,7 +9,6 @@ function ColorButton({ showHexMenu, color}) {
         type="button"
         name={s.colorButton}
         onClick={showHexMenu}
-        // style={{ backgroundColor: color }}
       >
         <svg style={{ fill: color }} version="1.1" xmlns="http://www.w3.org/2000/svg" width="30" height="30"  viewBox="0 0 32 32">
         <title>stop2</title>

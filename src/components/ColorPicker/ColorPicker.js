@@ -36,11 +36,6 @@ const ColorPicker = () => {
         <h2 className={s.title}>Color Picker</h2>
         <div className={s.content}>
           <div className={s.hexValue}>{hexValue}</div>
-          {/* <div
-            className={s.colorSquare}
-            style={{ backgroundColor: hexValue }}
-          ></div> */}
-
           <ColorButton
             showHexMenu={handleHexMenu}
             color={hexValue}

@@ -1,26 +1,28 @@
+import types from './actions-type';
+
 const changeCurrentColor = value => {
   return {
-    type: 'CHANGE_CURRENT_COLOR',
+    type: types.currentColor,
     payload: value,
   };
 };
 const changeHexValue = value => {
   return {
-    type: 'CHANGE_HEX_VALUE',
+    type: types.hexValue,
     payload: value,
   };
 };
 
 const changeColorModal = value => {
   return {
-    type: 'CHANGE_COLOR_MODAL',
+    type: types.colorModal,
     payload: value,
   };
 };
 
 const changeHexModal = value => {
   return {
-    type: 'CHANGE_HEX_MODAL',
+    type: types.rgbModal,
     payload: value,
   };
 };
