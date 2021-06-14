@@ -1,6 +1,8 @@
 React-компонент <ColorPicker>.
 
 Созданный рабочий проект https://beliksergeytesttask.netlify.app/;
+  
+  
 Использовал : React, Redux, Hooks.
 
 Функционал:
