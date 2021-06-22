@@ -7,8 +7,8 @@ import {
 import { CSSTransition } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from '../../redux/colorActions.js';
-import hexToRgb from '../../helpers/hexToRgb';
-import rgbToHex from '../../helpers/rgbToHex';
+import hexToRgb from '../helpers/hexToRgb';
+import rgbToHex from '../helpers/rgbToHex';
 import s from './HexMenu.module.css';
 
 function HexMenu() {
@@ -70,14 +70,17 @@ function HexMenu() {
   };
 
   // eslint-disable-next-line
-  const changeHex = useCallback(e => {
-    e.preventDefault();
-    const hex = rgbToHex(red, green, blue);
+  const changeHex = useCallback(
+    e => {
+      e.preventDefault();
+      const hex = rgbToHex(red, green, blue);
 
-    dispatch(actions.changeCurrentColor(hex));
-    dispatch(actions.changeHexValue(hex));
-    dispatch(actions.changeHexModal(!hexModal));
-  });
+      dispatch(actions.changeCurrentColor(hex));
+      dispatch(actions.changeHexValue(hex));
+      dispatch(actions.changeHexModal(!hexModal));
+    },
+    [dispatch, hexModal, blue, green, red],
+  );
 
   const closeModal = () => {
     dispatch(actions.changeHexModal(!hexModal));

@@ -31,12 +31,15 @@ function ColorMenu({ colors }) {
   });
 
   // eslint-disable-next-line
-  const handleColor = useCallback(evt => {
-    const value = evt.currentTarget.dataset.color;
-    dispatch(actions.changeHexValue(value));
-    dispatch(actions.changeCurrentColor(value));
-    dispatch(actions.changeColorModal(!colorModal));
-  });
+  const handleColor = useCallback(
+    evt => {
+      const value = evt.currentTarget.dataset.color;
+      dispatch(actions.changeHexValue(value));
+      dispatch(actions.changeCurrentColor(value));
+      dispatch(actions.changeColorModal(!colorModal));
+    },
+    [dispatch, colorModal],
+  );
 
   return (
     <CSSTransition

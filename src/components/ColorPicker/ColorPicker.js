@@ -1,19 +1,33 @@
 import { CSSTransition } from 'react-transition-group';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import selectors from '../../redux/selectors';
 import ColorButton from '../Buttons/ColorButton';
 import HexButton from '../Buttons/HexButton';
 import ColorMenu from '../ColorsMenu';
-import arrColors from '../../data/colors';
 import HexMenu from '../HexMenu';
 import actions from '../../redux/colorActions';
 import s from './ColorPicker.module.css';
 
-const ColorPicker = () => {
+const ColorPicker = ({ value, colors, onChange }) => {
   const dispatch = useDispatch();
 
-  const modalColor = useSelector(state => state.colorModal);
-  const hexModal = useSelector(state => state.hexModal);
-  const hexValue = useSelector(state => state.hexValue);
+  useEffect(() => {
+    dispatch(actions.changeCurrentColor(value));
+    dispatch(actions.changeHexValue(value));
+  }, [dispatch, value]);
+
+  const currenColor = useSelector(
+    selectors.getCurrentColor,
+  );
+
+  useEffect(() => {
+    onChange(currenColor);
+  }, [onChange, currenColor]);
+
+  const modalColor = useSelector(selectors.getModalColor);
+  const hexModal = useSelector(selectors.getHexModal);
+  const hexValue = useSelector(selectors.getHexValue);
 
   const handleColorMenu = e => {
     dispatch(actions.changeColorModal(!modalColor));
@@ -35,19 +49,14 @@ const ColorPicker = () => {
       <div className={s.container}>
         <h2 className={s.title}>Color Picker</h2>
         <div className={s.content}>
-          <div className={s.hexValue}>{hexValue}</div>
+          <div className={s.hexValue}>{currenColor}</div>
           <ColorButton
             showHexMenu={handleHexMenu}
             color={hexValue}
           />
           <HexButton showColorMenu={handleColorMenu} />
-          {modalColor && (
-            <ColorMenu
-              colors={arrColors}
-              className="button"
-            />
-          )}
-          {hexModal && <HexMenu className="button" />}
+          {modalColor && <ColorMenu colors={colors} />}
+          {hexModal && <HexMenu />}
         </div>
       </div>
     </CSSTransition>

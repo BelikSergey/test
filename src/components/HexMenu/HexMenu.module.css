@@ -9,7 +9,7 @@
 }
 .HexMenu {
     position: absolute;
-    right: 60px;
+    right: 10px;
     top: 100%;
     display: flex;
     justify-content: flex-end;

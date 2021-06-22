@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import types from './actions-type';
 
 const currentColorReducer = (
-  state = '#FFFF00',
+  state = '',
   { type, payload },
 ) => {
   switch (type) {
@@ -14,10 +14,7 @@ const currentColorReducer = (
   }
 };
 
-const hexValueReducer = (
-  state = '#FFFF00',
-  { type, payload },
-) => {
+const hexValueReducer = (state = '', { type, payload }) => {
   switch (type) {
     case types.hexValue:
       // console.log('есть редюсер');
